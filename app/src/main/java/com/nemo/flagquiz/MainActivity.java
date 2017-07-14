@@ -1,6 +1,9 @@
 package com.nemo.flagquiz;
 
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +14,15 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Ключи для чтения данных из SharedPreferences
+    public static final String CHOICES = "pref_numberOfChoices";
+    public static final String REGIONS = "pref_regionsToInclude";
+
+    private boolean phoneDevice = true; // Включение портретного режима
+    private boolean preferencesChanged = true; // Настройки изменились?
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,14 +30,24 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        // Задание значений по умолчанию в файле SharedPreferences
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        // Регистрация слушателя для изменений SharedPreferences
+        PreferenceManager.getDefaultSharedPreferences(this).
+                registerOnSharedPreferenceChangeListener(
+                        preferencesChangeListener);
+        // Определение размера экрана
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+        // Для планшетного устройства phoneDevice присваивается false210
+        if (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE ||
+                screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE)
+            phoneDevice = false; // Не соответствует размерам телефона
+    }
+    // На телефоне разрешена только портретная ориентация
+    if (phoneDevice)
+    setRequestedOrientation(
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override
