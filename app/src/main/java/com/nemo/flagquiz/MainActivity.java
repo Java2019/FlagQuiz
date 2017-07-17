@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        //
         // Задание значений по умолчанию в файле SharedPreferences
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         // Регистрация слушателя для изменений SharedPreferences
