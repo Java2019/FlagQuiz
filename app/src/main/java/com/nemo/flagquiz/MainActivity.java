@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 registerOnSharedPreferenceChangeListener(
                         preferencesChangeListener);
         // Определение размера экрана
-        //
+
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
         // Для планшетного устройства phoneDevice присваивается false210
@@ -72,4 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    
 }
