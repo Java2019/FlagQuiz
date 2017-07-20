@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean preferencesChanged = true; // Настройки изменились?
 
 
-
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
